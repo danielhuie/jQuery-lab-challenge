@@ -13,6 +13,9 @@
 // First, take a look at the index.html file to see the items you
 // will need to work with.
 
+var currentTime;
+
+
 // This function is the equivalent of document ready
 $(function() {
 	/* Hints:
@@ -22,12 +25,42 @@ $(function() {
 	 		-- Input values are strings, remember to parse it!
 			-- Regex for checking digit input is '^\\d+$'
 			-- Look up how setInterval() works, you will need it.
-	*/		
+	*/
+
+    $('#countdownButton').click(function() {
+        countDown();
+    });
+
+
+
+
 });
 
 function countDown() {
 	// Hint: if time < 0, stop the countdown, otherwise refresh the timer display & call createConfetti().
 	// Hint: to stop countdown, look up clearInterval() function.
+
+    var input = $('#time').val();
+    var regex = new RegExp('^\\d+$');
+    var isValid = regex.test(input);
+    if (isValid) {
+        currentTime = parseInt(input);
+        var timer = window.setInterval(function() {
+            $('#displayedTimer').text(currentTime + 's');
+            currentTime--;
+            if (currentTime < 0) {
+                currentTime++;
+            }
+
+        }, 1000);
+    } else {
+        alert("please enter a valid number");
+    }
+
+
+
+
+
 }
 
 function createConfetti() {
